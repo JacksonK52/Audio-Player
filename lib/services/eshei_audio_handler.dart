@@ -4,7 +4,7 @@ import 'package:just_audio/just_audio.dart';
 // Audio Handler Class
 // ============================
 //
-class AudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
+class EsheiAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   AudioPlayer audioPlayer = AudioPlayer();
 
   UriAudioSource _createAudioSource(MediaItem item) {
