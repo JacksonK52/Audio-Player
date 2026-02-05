@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 
 import 'package:audio_player/services/eshei_audio_handler.dart';
-import 'package:audio_player/pages/home_page.dart';
+import 'package:audio_player/pages/playlist_page.dart';
 
 // Instance of AudioHandler for global access
-EsheiAudioHandler _esheiAudioHandler = EsheiAudioHandler(); 
+EsheiAudioHandler _audioHandler = EsheiAudioHandler(); 
 
 // Main Function
 Future<void> main() async {
@@ -15,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize AudioService with AudioHandler as the audio handler
-  _esheiAudioHandler = await AudioService.init(
+  _audioHandler = await AudioService.init(
     builder: () => EsheiAudioHandler(),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.esheiplayer.example',
@@ -34,5 +34,15 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
-  Widget build()
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      
+      // Set the theme to dark
+      theme: ThemeData.dark(), 
+      
+      // Set the home page to HomePage with the initialized audio handler
+      home: PlaylistPage(audioHandler: _audioHandler),
+    );
+  }
 }

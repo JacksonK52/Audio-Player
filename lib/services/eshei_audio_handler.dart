@@ -51,7 +51,7 @@ class EsheiAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler 
   }
 
   // Function to initialize the song and set up the audio player
-  Future<void> iniSongs({required List<MediaItem> songs}) async {
+  Future<void> initSongs({required List<MediaItem> songs}) async {
     // Listen for playback events and broadcast the state
     audioPlayer.playbackEventStream.listen(_broadcastState);
 

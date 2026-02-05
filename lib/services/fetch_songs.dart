@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/rendering.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -9,15 +10,15 @@ import 'package:permission_handler/permission_handler.dart';
 OnAudioQuery onAudioQuery = OnAudioQuery();
 
 // Function to request storage permission
-Future<void> accessStorage() async =>
-    await Permission.storage.status.isGranted.then((granted) async {
-      if (granted == false) {
-        PermissionStatus permissionStatus = await Permission.storage.request();
-        if (permissionStatus == PermissionStatus.permanentlyDenied) {
-          await openAppSettings();
-        }
-      }
-    });
+Future<void> accessStorage() async {
+  if(await Permission.audio.isGranted) return;
+
+  final status = await Permission.audio.request();
+
+  if(status.isPermanentlyDenied) {
+    await openAppSettings();
+  }
+}
 
 // Function to retreived artwork for a given song ID
 Future<Uint8List?> art({required int id}) async {
